@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submarine Dashboard</title>
+  <link rel="stylesheet" href="/css/camera.css">
+  <link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.0/dist/roundslider.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="sidebar">
+    <ul>
+      <li class="logo" style="--bg: #333">
+        <a href="/">
+          <div class="icon">
+            <div class="fot">
+              <img src="/assets/logo.svg" alt="Logo">
+            </div>
+          </div>
+          <div class="text">
+            <div class="tem"></div>
+          </div>
+        </a>
+      </li>
+      <div class="Menulist">
+        <li style="--bg: #f44336" class="active">
+          <a href="/dashboard">
+            <div class="icon"><i class="fa-solid fa-house"></i></div>
+            <div class="text">Home</div>
+          </a>
+        </li>
+        <li style="--bg: #ffa117">
+          <a href="/dashboard/video">
+            <div class="icon">
+              <i class="fa-solid fa-video"></i>
+            </div>
+            <div class="text">Video</div>
+          </a>
+        </li>
+        <li style="--bg: #0fc70f">
+          <a href="/dashboard/location">
+            <div class="icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="text">Location</div>
+          </a>
+        </li>
+        <li style="--bg: #2196f3">
+          <a href="/dashboard/sensors">
+            <div class="icon">
+              <i class="fa-brands fa-nfc-symbol"></i>
+            </div>
+            <div class="text">Sensors</div>
+          </a>
+        </li>
+       
+      </div>
+      <div class="bottom">
+        <li style="--bg: #333">
+          <a href="#">
+            <div class="icon">
+              <ion-icon name="log-out-outline"></ion-icon>
+            </div>
+            <div class="text">Logout</div>
+          </a>
+        </li>
+        <li>
+          <div class="menuToggle"></div>
+        </li>
+      </div>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content" class="container">
+    <div class="container--title">
+      <h1>Camera</h1>
+    </div>
+
+
+
+         <div id="camera">
+            Camera
+         </div>
+
+
+
+
+  </div>
+
+  <script
+  type="module"
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+  nomodule
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+  ></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.0/dist/roundslider.min.js"></script>
+
+  <script>
+    // WebSocket connection
+    const ws = new WebSocket('ws://localhost:3000');
+
+    ws.onmessage = function (event) {
+      const data = JSON.parse(event.data);
+
+      // Update sensor data in the DOM
+      document.getElementById('latitude').textContent = data.latitude;
+      document.getElementById('longitude').textContent = data.longitude;
+
+      // Update the round-slider values
+      $("#slider-temperature").roundSlider("setValue", data.temperature_celsius);
+      $("#slider-temperature-k").roundSlider("setValue", data.temperature_kelvin);
+      $("#slider-tds").roundSlider("setValue", data.tds_value);
+      $("#slider-speed").roundSlider("setValue", data.speed);
+    };
+
+    ws.onerror = function (error) {
+      console.error('WebSocket Error:', error);
+    };
+
+    // Initialize round-sliders
+    $(document).ready(function() {
+      // Temperature Celsius slider
+      $("#slider-temperature").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 0,
+        max: 60,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 0,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+
+      // Temperature Kelvin slider
+      $("#slider-temperature-k").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 273,
+        max: 323,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 273,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+
+      // TDS slider
+      $("#slider-tds").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 0,
+        max: 1000,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 0,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+
+      // Speed slider
+      $("#slider-speed").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 0,
+        max: 50,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 0,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+    });
+
+    // Sidebar toggle logic
+    let menuToggle = document.querySelector(".menuToggle");
+    let sidebar = document.querySelector(".sidebar");
+    let mainContainer = document.querySelector(".container");
+    menuToggle.onclick = function () {
+      menuToggle.classList.toggle("active");
+      sidebar.classList.toggle("active");
+      mainContainer.classList.toggle("actived");
+    };
+
+    let Menulist = document.querySelectorAll(".Menulist li");
+    function activeLink() {
+      Menulist.forEach((item) => item.classList.remove("active"));
+      this.classList.add("active");
+    }
+    Menulist.forEach((item) => item.addEventListener("click", activeLink));
+
+
+
+
+
+    function startCamera() {
+      const cameraDiv = document.getElementById('camera');
+
+      // Create a video element
+      const video = document.createElement('video');
+      video.setAttribute('autoplay', true);
+      video.setAttribute('playsinline', true); // for iOS devices
+      cameraDiv.appendChild(video);
+
+      // Get access to the camera
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          video.srcObject = stream;
+        })
+        .catch(err => {
+          console.error('Error accessing the camera:', err);
+          cameraDiv.innerHTML = "Unable to access the camera.";
+        });
+    }
+
+    // Call the function to start the camera
+    startCamera();
+
+  </script>
+</body>
+</html>

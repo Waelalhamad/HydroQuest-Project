@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submarine Dashboard</title>
+  <link rel="stylesheet" href="/css/dashboardStyle.css">
+  <link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.0/dist/roundslider.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+
+<body>
+  <div class="sidebar">
+    <ul>
+      <li class="logo" style="--bg: #333">
+        <a href="/">
+          <div class="icon">
+            <div class="fot">
+              <img src="/assets/logo.svg" alt="Logo">
+            </div>
+          </div>
+          <div class="text">
+            <div class="tem"></div>
+          </div>
+        </a>
+      </li>
+      <div class="Menulist">
+        <li style="--bg: #f44336" class="active">
+          <a href="#">
+            <div class="icon"><i class="fa-solid fa-house"></i></div>
+            <div class="text">Home</div>
+          </a>
+        </li>
+        <li style="--bg: #ffa117">
+          <a href="/dashboard/video">
+            <div class="icon">
+              <i class="fa-solid fa-video"></i>
+            </div>
+            <div class="text">Video</div>
+          </a>
+        </li>
+        <li style="--bg: #0fc70f">
+          <a href="/dashboard/location">
+            <div class="icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="text">Location</div>
+          </a>
+        </li>
+        <li style="--bg: #2196f3">
+          <a href="/dashboard/sensors">
+            <div class="icon">
+              <i class="fa-brands fa-nfc-symbol"></i>
+            </div>
+            <div class="text">Sensors</div>
+          </a>
+        </li>
+      </div>
+      <div class="bottom">
+        <li style="--bg: #333">
+          <a href="/auth/logout">
+            <div class="icon">
+              <ion-icon name="log-out-outline"></ion-icon>
+            </div>
+            <div class="text">Logout</div>
+          </a>
+        </li>
+        <li>
+          <div class="menuToggle"></div>
+        </li>
+      </div>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content" class="container">
+    <div class="container--title">
+      <h1>Dashboard</h1>
+    </div>
+
+    <div id="sensor-data">
+      <div class="sensor-data__gages">
+        <!-- Temperature (Celsius) Slider -->
+        <div class="slider-container sl-1">
+          <div class="slider-container__content">
+            <h2>Temperature</h2>
+          </div>
+          <div id="slider-temperature"></div>
+        </div>
+
+        <!-- TDS Value Slider -->
+        <div class="slider-container sl-2">
+          <h2>TDS</h2>
+          <div id="slider-tds"></div>
+        </div>
+
+        <!-- Speed Slider -->
+        <div class="slider-container sl-3">
+          <h2>Speed</h2>
+          <div id="slider-speed"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nonGagesData">
+      <div class="camera">
+        <h2>Camera</h2>
+      </div>
+      <div class="location">
+        <div id="map" style="height: 300px;"></div> <!-- Leaflet Map Container -->
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.0/dist/roundslider.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize the Leaflet map
+    const map = L.map('map' , {zoomControl: true , zoom: 2}).setView([0, 0], 2); // Default view centered on the equator
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Marker to represent the submarine's position
+    let marker = L.marker([0, 0]).addTo(map);
+
+    // WebSocket connection
+    const ws = new WebSocket('ws://localhost:3000');
+
+    ws.onmessage = function (event) {
+      const data = JSON.parse(event.data);
+
+      // Update sensor data in the DOM
+      const latitude = data.latitude;
+      const longitude = data.longitude;
+
+      // Update the Leaflet marker position
+      marker.setLatLng([latitude, longitude]);
+
+      // Adjust the map's view to the new marker position
+      map.setView([latitude, longitude], 10); // Adjust zoom level as needed
+
+      // Update the round-slider values
+      $("#slider-temperature").roundSlider("setValue", data.temperature_celsius);
+      $("#slider-temperature-k").roundSlider("setValue", data.temperature_kelvin);
+      $("#slider-tds").roundSlider("setValue", data.tds_value);
+      $("#slider-speed").roundSlider("setValue", data.speed);
+    };
+
+    ws.onerror = function (error) {
+      console.error('WebSocket Error:', error);
+    };
+
+    // Initialize round-sliders
+    $(document).ready(function () {
+      // Temperature Celsius slider
+      $("#slider-temperature").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 0,
+        max: 60,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 0,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+
+      // Temperature Kelvin slider
+      $("#slider-temperature-k").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 273,
+        max: 323,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 273,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+
+      // TDS slider
+      $("#slider-tds").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 0,
+        max: 1000,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 0,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+
+      // Speed slider
+      $("#slider-speed").roundSlider({
+        sliderType: "min-range",
+        circleShape: "pie",
+        startAngle: "315",
+        lineCap: "round",
+        radius: 90,
+        width: 20,
+        min: 0,
+        max: 50,
+        svgMode: true,
+        handleSize: "+8",
+        pathColor: "#e3e4ed",
+        borderWidth: 0,
+        editableTooltip: false,
+        startValue: 0,
+        rangeColor: "#006fff",
+        readOnly: true,
+        animation: true
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submarine Dashboard</title>
+    <link rel="stylesheet" href="/css/location.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/round-slider@1.6.0/dist/roundslider.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+    <style>
+      /* Custom map styling */
+      #map {
+        height: 500px;
+        width: 95%;
+        border-radius: 10px;
+        margin-top: 20px;
+      }
+      
+      /* Move zoom controls to the right side */
+
+
+      /* Style for zoom control buttons */
+      .leaflet-control-zoom-in,
+      .leaflet-control-zoom-out {
+        background-color: #006fff !important;
+        color: white !important;
+        font-size: 18px !important;
+        border: none !important;
+
+      }
+
+      .leaflet-control-zoom-in:hover,
+      .leaflet-control-zoom-out:hover {
+        background-color: #0056b3 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <ul>
+        <li class="logo" style="--bg: #333">
+          <a href="/">
+            <div class="icon">
+              <div class="fot">
+                <img src="/assets/logo.svg" alt="Logo" />
+              </div>
+            </div>
+            <div class="text">
+              <div class="tem"></div>
+            </div>
+          </a>
+        </li>
+        <div class="Menulist">
+          <li style="--bg: #f44336" class="active">
+            <a href="/dashboard">
+              <div class="icon"><i class="fa-solid fa-house"></i></div>
+              <div class="text">Home</div>
+            </a>
+          </li>
+          <li style="--bg: #ffa117">
+            <a href="/dashboard/video">
+              <div class="icon">
+                <i class="fa-solid fa-video"></i>
+              </div>
+              <div class="text">Video</div>
+            </a>
+          </li>
+          <li style="--bg: #0fc70f">
+            <a href="/dashboard/location">
+              <div class="icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="text">Location</div>
+            </a>
+          </li>
+          <li style="--bg: #2196f3">
+            <a href="/dashboard/sensors">
+              <div class="icon">
+                <i class="fa-brands fa-nfc-symbol"></i>
+              </div>
+              <div class="text">Sensors</div>
+            </a>
+          </li>
+        </div>
+        <div class="bottom">
+          <li style="--bg: #333">
+            <a href="#">
+              <div class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </div>
+              <div class="text">Logout</div>
+            </a>
+          </li>
+          <li>
+            <div class="menuToggle"></div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="container">
+      <div class="container--title">
+        <h1>Location</h1>
+      </div>
+
+      <!-- Map Container -->
+      <div id="map"></div>
+    </div>
+
+    <!-- External Scripts -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.0/dist/roundslider.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+      // Initialize WebSocket connection
+      const ws = new WebSocket("ws://localhost:3000");
+
+      // Initialize Leaflet map
+      const map = L.map('map').setView([0, 0], 2); // Initial center [lat, lon]
+
+      // Add OpenStreetMap tile layer
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Marker to display the submarine's location
+      let marker = L.marker([0, 0]).addTo(map);
+
+      ws.onmessage = function (event) {
+        const data = JSON.parse(event.data);
+
+        // Update marker position on the map with new latitude and longitude
+        const lat = data.latitude;
+        const lon = data.longitude;
+        marker.setLatLng([lat, lon]);
+        map.setView([lat, lon], 10); // Set view to the new location
+
+        // Update the round-slider values
+        $("#slider-temperature").roundSlider("setValue", data.temperature_celsius);
+        $("#slider-temperature-k").roundSlider("setValue", data.temperature_kelvin);
+        $("#slider-tds").roundSlider("setValue", data.tds_value);
+        $("#slider-speed").roundSlider("setValue", data.speed);
+      };
+
+      ws.onerror = function (error) {
+        console.error("WebSocket Error:", error);
+      };
+
+      // Sidebar toggle logic
+      let menuToggle = document.querySelector(".menuToggle");
+      let sidebar = document.querySelector(".sidebar");
+      let mainContainer = document.querySelector(".container");
+      menuToggle.onclick = function () {
+        menuToggle.classList.toggle("active");
+        sidebar.classList.toggle("active");
+        mainContainer.classList.toggle("actived");
+      };
+
+      let Menulist = document.querySelectorAll(".Menulist li");
+      function activeLink() {
+        Menulist.forEach((item) => item.classList.remove("active"));
+        this.classList.add("active");
+      }
+      Menulist.forEach((item) => item.addEventListener("click", activeLink));
+    </script>
+  </body>
+</html>

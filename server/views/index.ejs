@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Hope | HydroQuest</title>
+    <meta name="description" content="" />
+
+    <!-- Link to Aos -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Link Custom CSS file -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Font Awesome Cdn Js -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Swiper Js to Team Section -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+
+    <!-- Favicon Link -->
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+
+    <!-- Link Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <a id="nav-menu" class="nav-menu">
+          <ion-icon name="menu-outline"></ion-icon>
+        </a>
+        <a href="#" class="logo">
+          <img src="./assets/logo.svg" alt="Logo" />
+        </a>
+        <nav class="main-nav">
+          <ul class="nav-links">
+            <li><a href="#home" class="nav-link active-nav">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#team" class="nav-link">Team</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="sign-up">
+          <a href="/auth/signup" class="button"
+            >Get started</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+      <!-- Home Section -->
+      <section class="home" id="home">
+        <div class="slide-list">
+          <div class="slide-item active-slide">
+            <img src="./assets/slider-1.jpg" alt="Underwater Exploration" />
+            <div class="slide-content">
+              <h3><span>Hydro Quest</span></h3>
+              <h1>Autonomous Underwater Submarine</h1>
+              <p>
+                Discover the depths of the ocean with Hydro Quest, an innovative
+                autonomous submarine by Team Hope, designed for exploration and
+                environmental preservation.
+              </p>
+              <a href="#" class="btn-main">Get Started</a>
+            </div>
+          </div>
+
+          <div class="slide-item">
+            <img src="./assets/slider-2.jpg" alt="Advanced Technology" />
+            <div class="slide-content">
+              <h3><span>Innovative Design</span></h3>
+              <h1>Cutting-Edge Submarine Technology</h1>
+              <p>
+                Hydro Quest combines state-of-the-art technology with a
+                commitment to sustainability, offering unparalleled exploration
+                capabilities.
+              </p>
+              <a href="#" class="btn-main">Get Started</a>
+            </div>
+          </div>
+
+          <div class="slide-item">
+            <img src="./assets/slider-3.jpg" alt="Mission-Ready" />
+            <div class="slide-content">
+              <h3><span>Explore the Deep</span></h3>
+              <h1>Mission-Ready for Ocean Discovery</h1>
+              <p>
+                Engineered to withstand the challenges of the deep sea, Hydro
+                Quest is your partner in scientific and environmental research.
+              </p>
+              <a href="#" class="btn-main">Get Started</a>
+            </div>
+          </div>
+
+          <div class="slide-item">
+            <img src="./assets/slider-4.jpeg" alt="Sustainable Exploration" />
+            <div class="slide-content">
+              <h3><span>Team Hope</span></h3>
+              <h1>Pioneers in Sustainable Exploration</h1>
+              <p>
+                Join Team Hope in pioneering sustainable ocean exploration with
+                Hydro Quest, a testament to innovation and environmental
+                stewardship.
+              </p>
+              <a href="#" class="btn-main">Get Started</a>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="slider-btn-main prev"
+          onclick="prevSlide();"
+          aria-label="Previous Slide"
+        >
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+
+        <button
+          class="slider-btn-main next"
+          onclick="nextSlide();"
+          aria-label="Next Slide"
+        >
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+      </section>
+
+      <!-- About Section -->
+      <section class="about" id="about">
+        <h1 class="heading">About <span>US</span></h1>
+        <div class="about-bottom container">
+          <div class="row g-5">
+            <div
+              class="about-bottom--content col-lg-6 d-flex flex-column gap-3"
+              data-aos="fade-up"
+            >
+              <h2 class="mini-title align-self-start">
+                <span class="actual-text"
+                  >&nbsp;Design and Programming&nbsp;</span
+                >
+                <span aria-hidden="true" class="hover-text"
+                  >&nbsp;Design and Programming&nbsp;</span
+                >
+              </h2>
+              <p>
+                The Hydro-Quest is an innovative submarine designed to address
+                the challenges of exploring underwater organisms. It utilizes
+                modern scanning technologies, enabling it to gather information
+                from deep-sea territories that were previously inaccessible.
+                This data is then analyzed using complex analytical tools,
+                allowing for a detailed understanding of how underwater
+                ecosystems function. Additionally, it enhances our comprehension
+                and helps us protect these fragile habitats by offering an
+                educational perspective on marine life.
+              </p>
+
+              <!-- Animated btn-main -->
+              <button class="animated-button align-self-start">
+                <svg
+                  viewBox="0 0 24 24"
+                  class="arr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                  ></path>
+                </svg>
+                <span class="text">Learn More</span>
+                <span class="circle"></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  class="arr-1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <figure class="about-bottom--img col-lg-6" data-aos="fade-up">
+              <img src="./assets/download.png" alt="" class="img-fluid" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section class="gallery" id="gallery">
+        <div class="gallery-top">
+          <h1 class="heading">Our <span>Gallery</span></h1>
+        </div>
+        <div class="container g-4">
+          <div class="row g-4">
+            <div class="col-lg-4" data-aos="zoom-in-up">
+              <img src="./assets/download.png" alt="" />
+            </div>
+            <div class="col-lg-4" data-aos="zoom-in-up">
+              <img src="./assets/download.png" alt="" />
+            </div>
+            <div class="col-lg-4" data-aos="zoom-in-up">
+              <img src="./assets/download.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <a
+          href="#features"
+          class="btn-main align-self-center"
+          data-aos="zoom-in-up"
+          >Learn More</a
+        >
+      </section>
+
+      <!-- Team Section -->
+      <section class="team" id="team">
+        <h2 class="heading">Our <span>Team</span></h2>
+        <div class="section testimonials">
+          <div class="container">
+            <div class="testimonials-content">
+              <div class="swiper js-testimonials-slider">
+                <div class="swiper-wrapper">
+                  <div
+                    class="swiper-slide testimonials-item"
+                    data-aos="fade-right"
+                  >
+                    <div class="info">
+                      <img src="./assets/download.png" alt="Client Photo" />
+                      <div class="text-box">
+                        <h3 class="name">Anas Homsi</h3>
+                        <span class="job">Web Developer</span>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Aliquam accusamus illo natus ab blanditiis dolorem
+                      incidunt obcaecati omnis cumque dignissimos.
+                      Necessitatibus quia quam labore. Quam, mollitia
+                      asperiores? Ipsam, accusamus voluptas.
+                    </p>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div
+                    class="swiper-slide testimonials-item"
+                    data-aos="fade-left"
+                  >
+                    <div class="info">
+                      <img src="./assets/download.png" alt="Client Photo" />
+                      <div class="text-box">
+                        <h3 class="name">Lana Sabakh</h3>
+                        <span class="job">Programmer</span>
+                      </div>
+                    </div>
+                    <p>
+                      My name is Lana, a 15-year-old from Syria. I enjoy
+                      computer activities and creating unique things. I’m
+                      committed to studying neurology and will strive to achieve
+                      this goal. Additionally, I have a hobby interest in
+                      mechanical engineering.
+                    </p>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="swiper-slide testimonials-item">
+                    <div class="info">
+                      <img src="./assets/download.png" alt="Client Photo" />
+                      <div class="text-box">
+                        <h3 class="name">Mais Alreem</h3>
+                        <span class="job">Researcher</span>
+                      </div>
+                    </div>
+                    <p>
+                      Mais Alreem Moheb Aldin is a 14-year-old student from
+                      Syria currently in 8th grade. She has a passion for
+                      solving puzzles and riddles and has gained programming
+                      experience through participation in several programming
+                      and computer courses.
+                    </p>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="swiper-slide testimonials-item">
+                    <div class="info">
+                      <img src="./assets/download.png" alt="Client Photo" />
+                      <div class="text-box">
+                        <h3 class="name">Wael</h3>
+                        <span class="job">Programmer</span>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Aliquam accusamus illo natus ab blanditiis dolorem
+                      incidunt obcaecati omnis cumque dignissimos.
+                      Necessitatibus quia quam labore. Quam, mollitia
+                      asperiores? Ipsam, accusamus voluptas.
+                    </p>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="swiper-slide testimonials-item">
+                    <div class="info">
+                      <img src="./assets/download.png" alt="Client Photo" />
+                      <div class="text-box">
+                        <h3 class="name">Leen Shehadi</h3>
+                        <span class="job"> Designer </span>
+                      </div>
+                    </div>
+                    <p>
+                      My name is Leen Shehadi. I am 14 years old and from Syria,
+                      currently in grade 9. I have a deep interest in reading
+                      intriguing novels and a strong passion for writing short
+                      stories. Writing is my favorite hobby and a cherished
+                      creative outlet.
+                    </p>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="swiper-slide testimonials-item">
+                    <div class="info">
+                      <img src="./assets/download.png" alt="Client Photo" />
+                      <div class="text-box">
+                        <h3 class="name">Hadi Shrouf</h3>
+                        <span class="job">coordinator</span>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Aliquam accusamus illo natus ab blanditiis dolorem
+                      incidunt obcaecati omnis cumque dignissimos.
+                      Necessitatibus quia quam labore. Quam, mollitia
+                      asperiores? Ipsam, accusamus voluptas.
+                    </p>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="swiper-slide testimonials-item">
+                    <div class="info">
+                      <img src="./assets/download.png" alt="Client Photo" />
+                      <div class="text-box">
+                        <h3 class="name">Shahid ..</h3>
+                        <span class="job">web developer</span>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Aliquam accusamus illo natus ab blanditiis dolorem
+                      incidunt obcaecati omnis cumque dignissimos.
+                      Necessitatibus quia quam labore. Quam, mollitia
+                      asperiores? Ipsam, accusamus voluptas.
+                    </p>
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <!-- Repeat the above swiper-slide block for more testimonials -->
+                </div>
+                <!-- Pagination -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features" id="features">
+        <div class="features--title">
+          <h2 class="heading">Our <span> Features </span></h2>
+        </div>
+        <div class="features--container">
+          <div class="features--item__1" data-aos="fade-right">
+            <div class="features--item__num">
+              <h2>01</h2>
+              <p>HydroQest Features</p>
+              <div class="traingle"></div>
+            </div>
+
+            <div class="shadow"></div>
+            <i class="fa-solid fa-house"></i>
+
+            <div class="features--item__content-bottom">
+              <div class="features__content--title">
+                <i class="fa-solid fa-plus"></i>
+                <h3>STEP ONE</h3>
+              </div>
+
+              <p class="features__content--para">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Deserunt, impedit beatae. Eum voluptatum placeat perspiciatis
+                quo eos minima quae illo!
+              </p>
+            </div>
+          </div>
+          <div class="features--item__1 feature2" data-aos="fade-left">
+            <div class="features--item__num">
+              <h2>02</h2>
+              <p>HydroQest Features</p>
+              <div class="traingle"></div>
+            </div>
+
+            <i class="fa-solid fa-house"></i>
+            <div class="shadow"></div>
+
+            <div class="features--item__content-bottom">
+              <div class="features__content--title">
+                <i class="fa-solid fa-plus"></i>
+                <h3>STEP ONE</h3>
+              </div>
+
+              <p class="features__content--para">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Deserunt, impedit beatae. Eum voluptatum placeat perspiciatis
+                quo eos minima quae illo!
+              </p>
+            </div>
+          </div>
+          <div class="features--item__1" data-aos="fade-right">
+            <div class="features--item__num">
+              <h2>04</h2>
+              <p>HydroQest Features</p>
+              <div class="traingle"></div>
+            </div>
+
+            <i class="fa-solid fa-house"> </i>
+
+            <div class="shadow"></div>
+            <div class="features--item__content-bottom">
+              <div class="features__content--title">
+                <i class="fa-solid fa-plus"></i>
+                <h3>STEP ONE</h3>
+              </div>
+
+              <p class="features__content--para">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Deserunt, impedit beatae. Eum voluptatum placeat perspiciatis
+                quo eos minima quae illo!
+              </p>
+            </div>
+          </div>
+          <div class="features--item__1" data-aos="fade-left">
+            <div class="features--item__num">
+              <h2>03</h2>
+              <p>HydroQest Features</p>
+              <div class="traingle"></div>
+            </div>
+
+            <div class="shadow"></div>
+            <i class="fa-solid fa-house"></i>
+
+            <div class="features--item__content-bottom">
+              <div class="features__content--title">
+                <i class="fa-solid fa-plus"></i>
+                <h3>STEP ONE</h3>
+              </div>
+
+              <p class="features__content--para">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Deserunt, impedit beatae. Eum voluptatum placeat perspiciatis
+                quo eos minima quae illo!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="contact" id="contact">
+        <h1 class="heading">Hydro<span>Quest</span></h1>
+
+        <div class="contact--container">
+          <div class="rightSide" data-aos="fade-right">
+            <div class="rightSide--title">
+              <h2>Contact</h2>
+              <h2>Us</h2>
+            </div>
+            <div class="rightSide--box"></div>
+          </div>
+
+          <form class="leftSide" id="contact-form" data-aos="fade-left">
+            <input type="text" id="form-name" placeholder="Name" />
+            <input type="email" id="form-email" placeholder="Email" />
+            <textarea id="form-message" placeholder="Message"></textarea>
+            <button type="submit" id="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-col">
+          <a href="#" class="logo">
+            <img src="./assets/logo.svg" alt="Logo" />
+          </a>
+        </div>
+        <div class="footer-col">
+          <h2>Quick<span>links</span></h2>
+          <ul>
+            <li><a href="#home" class="nav-link active-nav">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#team" class="nav-link">Team</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Follow <span>Us</span></h2>
+          <ul>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>News<span>letter</span></h2>
+          <form>
+            <input
+              type="email"
+              placeholder="Enter Your Email:"
+              id="news"
+              required
+            />
+            <button type="submit" aria-label="Submit Email">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 <span>Team Hope</span></p>
+      </div>
+    </footer>
+
+    <!-- Arrow Up Button -->
+    <div id="scrollUp" class="scroll-up">
+      <ion-icon name="chevron-up-outline"></ion-icon>
+    </div>
+
+    <!-- Email Submit API -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <!-- Link Custom JS File -->
+    <script src="/js/main.js"></script>
+
+    <!-- Icons Library -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <!-- Bootsrap Library -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Swiper Js to Team Section -->
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Aos Library  -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+      });
+    </script>
+  </body>
+</html>
